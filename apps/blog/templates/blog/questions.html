@@ -1,0 +1,39 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load humanize %}
+{%  load blog_tags %}
+
+
+{% block base_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+        <div class="summary-list">
+            {% for article in articles %}
+                <div class="media mb-1 mb-sm-2 p-2 p-lg-3">
+                    <div class="media-body">
+                        <h2 class="mt-0 font-weight-bold text-info f-17">
+                            <a href="{{ article.get_absolute_url }}" target="_blank">{{ article.name}}</a>
+                        </h2>
+                        <hr>
+                        <p class="d-none d-sm-block mb-2 f-15">{{ article.description|truncatechars:130 }}</p>
+                        <p class="d-block d-sm-none mb-2 f-15">{{ article.description|truncatechars:64 }}</p>
+                        <hr>
+                        <a>
+                            <span class="mx-2">作者: {{ article.author }}</span>
+                            <span class="mx-2">创建时间: {{ article.create_date }}</span>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if is_paginated %}{% load_pages %}{% endif %}
+        </div>
+
+
+        </div>
+            <div class="col-lg-4">
+                {% include 'blog/tags/base_right.html' %}
+            </div>
+    </div>
+</div>
+{% endblock %}

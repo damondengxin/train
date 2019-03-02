@@ -1,7 +1,8 @@
 {% load static oauth_tags comment_tags %}
 <nav class="navbar navbar-expand-md bg-white fixed-top blog-navbar py-md-0">
     <a class="navbar-brand d-md-none d-lg-block" href="{% url 'blog:index' %}">
-        <img src="{% static 'blog/img/logo.png' %}" alt="{{ site_end_title }}">
+        <img src="{% static 'blog/img/logo-3.jpg' %}" alt="{{ site_end_title }}">
+        一点通教育
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,29 +11,59 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item mr-2">
-                {% url 'blog:index' as index_url %}
-                <a class="nav-link py-md-3 {% if request.path == index_url %}active{% endif %}" href="{{ index_url }}"><i class="fa fa-home mr-1"></i>首页<span class="sr-only">(current)</span></a>
+                {% url 'blog:index' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">首页<span class="sr-only">(current)</span></a>
             </li>
+
             <li class="nav-item mr-2">
-                {% url 'blog:archive' as archive_url %}
-                <a class="nav-link py-md-3 {% if request.path == archive_url %}active{% endif %}" href="{{ archive_url }}"><i class="fa fa-sitemap mr-1"></i>归档</a>
+                {% url 'blog:software' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">常用软件</a>
             </li>
+
+            <li class="nav-item mr-2">
+                {% url 'blog:ebook' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">电子书</a>
+            </li>
+
+            <li class="nav-item mr-2">
+                {% url 'blog:train' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">培训</a>
+            </li>
+
+            <li class="nav-item mr-2">
+                {% url 'blog:questions' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">面试题目</a>
+            </li>
+
+            <li class="nav-item mr-2">
+                {% url 'blog:archive' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">归档</a>
+            </li>
+
+            <li class="nav-item mr-2">
+                {% url 'blog:project' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">项目收集</a>
+            </li>
+
+            <!--
             {% if tool_flag %}
             <li class="nav-item mr-2">
-                {% url 'tool:total' as tool_url %}
-                <a class="nav-link py-md-3 {% if request.path == tool_url %}active{% endif %}" href="{{ tool_url }}"><i class="fa fa-balance-scale mr-1"></i>在线工具</a>
+                {% url 'tool:total' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">在线工具</a>
             </li>
             {% endif %}
             {% if api_flag %}
-            <li class="nav-item mr-2">
-                <a class="nav-link py-md-3" href="{% url 'api:api-root' %}" target="_blank"><i class="fa fa-key mr-1"></i>API</a>
+            <li class="nav-item mr-1">
+                <a class="nav-link py-md-2" href="{% url 'api:api-root' %}" target="_blank"><i class="fa fa-key mr-1"></i>API</a>
             </li>
             {% endif %}
+            -->
             <li class="nav-item mr-2 ">
-                {% url 'blog:about' as about_url %}
-                <a class="nav-link py-md-3 {% if request.path == about_url %}active{% endif %}" href="{{ about_url }}"><i class="fa fa-anchor mr-1"></i>关于</a>
+                {% url 'blog:about' as url %}
+                <a class="nav-link py-md-2 {% if request.path == url %}active{% endif %}" href="{{ url }}">关于我们</a>
             </li>
-            <form class="nav-item navbar-form mr-2 py-md-2" role="search" method="get" id="searchform" action="{% url 'blog:search_view'%}">
+
+            <form class="nav-item navbar-form mr-1 py-md-1" role="search" method="get" id="searchform" action="{% url 'blog:search_view'%}">
                 <div class="input-group">
                     <input type="search" name="q" class="form-control rounded-0 f-15" placeholder="搜索" required=True>
                     <div class="input-group-btn">

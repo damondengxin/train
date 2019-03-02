@@ -1,0 +1,43 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load humanize %}
+{%  load blog_tags %}
+
+
+{% block base_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+        <div class="summary-list">
+            <table class="table table-bordered  table-sm">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">序号</th>
+                      <th scope="col">项目名</th>
+                      <th scope="col">项目简介</th>
+                      <th scope="col">项目地址</th>
+                      <th scope="col">收录人</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in articles %}
+                        <tr class="even gradeX">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.name  }}</td>
+                            <td>{{ i.description }}</td>
+                            <td ><a href="{{ i.download_link }}" target="_blank">{{ i.download_link }}</a></td>
+                            <td>{{ i.author }}</td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+            {% if is_paginated %}{% load_pages %}{% endif %}
+        </div>
+        </div>
+            <div class="col-lg-4">
+                {% include 'blog/tags/base_right.html' %}
+            </div>
+    </div>
+</div>
+{% endblock %}

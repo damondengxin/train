@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
 from django.views import generic
 from django.conf import settings
-from .models import Article, Tag, Category, Timeline, Silian
+from .models import Article, Tag, Category, Timeline, Silian, Software, Ebook, Train, Project, About
 from django.core.cache import cache
 
 from markdown.extensions.toc import TocExtension  # 锚点的拓展
@@ -40,6 +40,7 @@ class IndexView(generic.ListView):
         if sort == 'v':
             return ('-views', '-update_date', '-id')
         return ordering
+
 
 
 class DetailView(generic.DetailView):
@@ -136,9 +137,6 @@ class TagView(generic.ListView):
         return context_data
 
 
-def AboutView(request):
-    site_date = datetime.datetime.strptime('2018-04-12','%Y-%m-%d')
-    return render(request, 'blog/about.html',context={'site_date':site_date})
 
 
 class TimelineView(generic.ListView):
@@ -160,4 +158,111 @@ class MySearchView(SearchView):
     paginate_orphans = getattr(settings, 'BASE_ORPHANS', 0)
     queryset = SearchQuerySet().order_by('-views')
 
+class SoftwareView(generic.ListView):
+    model = Software
+    template_name = 'blog/software.html'
+    context_object_name = 'articles'
+    paginate_by = getattr(settings, 'BASE_PAGE_BY', None)
+    paginate_orphans = getattr(settings, 'BASE_ORPHANS', 0)
+
+    def get_ordering(self):
+        ordering = super(SoftwareView, self).get_ordering()
+        sort = self.kwargs.get('sort')
+        if sort == 'v':
+            return ('-views', '-update_date', '-id')
+        return ordering
+
+
+class Software_DetailView(generic.DetailView):
+    model = Software
+    template_name = 'blog/software_detail.html'
+    context_object_name = 'article'
+
+
+class EbookView(generic.ListView):
+    model = Ebook
+    template_name = 'blog/ebook.html'
+    context_object_name = 'articles'
+    paginate_by = getattr(settings, 'BASE_PAGE_BY', None)
+    paginate_orphans = getattr(settings, 'BASE_ORPHANS', 0)
+
+    def get_ordering(self):
+        ordering = super(EbookView, self).get_ordering()
+        sort = self.kwargs.get('sort')
+        if sort == 'v':
+            return ('-views', '-update_date', '-id')
+        return ordering
+
+
+class Ebook_DetailView(generic.DetailView):
+    model = Ebook
+    template_name = 'blog/ebook_detail.html'
+    context_object_name = 'article'
+
+
+class TrainView(generic.ListView):
+    model = Train
+    template_name = 'blog/train.html'
+    context_object_name = 'articles'
+    paginate_by = getattr(settings, 'BASE_PAGE_BY', None)
+    paginate_orphans = getattr(settings, 'BASE_ORPHANS', 0)
+
+    def get_ordering(self):
+        ordering = super(TrainView, self).get_ordering()
+        sort = self.kwargs.get('sort')
+        if sort == 'v':
+            return ('-views', '-update_date', '-id')
+        return ordering
+
+
+class Train_DetailView(generic.DetailView):
+    model = Ebook
+    template_name = 'blog/train_detail.html'
+    context_object_name = 'article'
+
+class QuestionsView(generic.ListView):
+    model = Train
+    template_name = 'blog/questions.html'
+    context_object_name = 'articles'
+    paginate_by = getattr(settings, 'BASE_PAGE_BY', None)
+    paginate_orphans = getattr(settings, 'BASE_ORPHANS', 0)
+
+    def get_ordering(self):
+        ordering = super(QuestionsView, self).get_ordering()
+        sort = self.kwargs.get('sort')
+        if sort == 'v':
+            return ('-views', '-update_date', '-id')
+        return ordering
+
+
+class Questions_DetailView(generic.DetailView):
+    model = Ebook
+    template_name = 'blog/questions_detail.html'
+    context_object_name = 'article'
+
+
+
+class ProjectView(generic.ListView):
+    model = Project
+    template_name = 'blog/project.html'
+    context_object_name = 'articles'
+    paginate_by = getattr(settings, 'BASE_PAGE_BY', None)
+    paginate_orphans = getattr(settings, 'BASE_ORPHANS', 0)
+
+    def get_ordering(self):
+        ordering = super(ProjectView, self).get_ordering()
+        sort = self.kwargs.get('sort')
+        if sort == 'v':
+            return ('-views', '-update_date', '-id')
+        return ordering
+
+class AboutView(generic.ListView):
+    model = About
+    template_name = 'blog/about.html'
+    context_object_name = 'obj'
+
+# def AboutView(request):
+#     #site_date = datetime.datetime.strptime('2018-04-12','%Y-%m-%d')
+#     obj = About.objects.all()
+#     return render(request, 'blog/about.html',locals())
 

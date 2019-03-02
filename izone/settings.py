@@ -31,18 +31,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if MY_DEBUG == 0:
-    DEBUG = False
-elif MY_DEBUG == 1:
-    DEBUG = True
-else:
-    # 非强制开启DEBUG模式：如果运行环境是Windows就开启DEBUG，否则关闭
-    if platform.system() == 'Windows':
-        DEBUG = True
-    else:
-        DEBUG = False
+DEBUG=True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.tendcode.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

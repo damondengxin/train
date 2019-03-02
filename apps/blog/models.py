@@ -222,3 +222,137 @@ class FriendLink(models.Model):
     def show_to_false(self):
         self.is_show = True
         self.save(update_fields=['is_show'])
+
+
+class Software(models.Model):
+    name = models.CharField('软件名', max_length=50)
+    description = models.TextField('软件说明', blank=True)
+    download_link = models.URLField("下载地址", blank=True)
+    create_date = models.DateTimeField('创建时间', auto_now_add=True)
+    updated_date = models.DateTimeField('更新时间', auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者')
+    slug = models.SlugField(unique=True)
+    class Meta:
+        verbose_name = '常用软件'
+        verbose_name_plural = verbose_name
+        ordering = ['updated_date']
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('blog:software_detail', kwargs={'slug': self.slug})
+
+    def get_pre(self):
+        return Software.objects.filter(id__lt=self.id).order_by('-id').first()
+
+    def get_next(self):
+        return Software.objects.filter(id__gt=self.id).order_by('id').first()
+
+
+class Ebook(models.Model):
+    name = models.CharField('书名', max_length=50)
+    description = models.CharField('描述', max_length=100, blank=True)
+    download_link = models.URLField("下载地址", blank=True)
+    create_date = models.DateTimeField('创建时间', auto_now_add=True)
+    updated_date = models.DateTimeField('更新时间', auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者')
+    slug = models.SlugField(unique=True)
+    class Meta:
+        verbose_name = '电子书'
+        verbose_name_plural = verbose_name
+        ordering = ['updated_date']
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('blog:ebook_detail', kwargs={'slug': self.slug})
+
+    def get_pre(self):
+        return Ebook.objects.filter(id__lt=self.id).order_by('-id').first()
+
+    def get_next(self):
+        return Ebook.objects.filter(id__gt=self.id).order_by('id').first()
+
+
+class Train(models.Model):
+    name = models.CharField('培训类型', max_length=50)
+    description = models.CharField('描述', max_length=100, blank=True)
+    download_link = models.URLField("下载地址", blank=True)
+    create_date = models.DateTimeField('创建时间', auto_now_add=True)
+    updated_date = models.DateTimeField('更新时间', auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者')
+    slug = models.SlugField(unique=True)
+    class Meta:
+        verbose_name = '培训'
+        verbose_name_plural = verbose_name
+        ordering = ['updated_date']
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('blog:ebook_detail', kwargs={'slug': self.slug})
+
+    def get_pre(self):
+        return Train.objects.filter(id__lt=self.id).order_by('-id').first()
+
+    def get_next(self):
+        return Train.objects.filter(id__gt=self.id).order_by('id').first()
+
+
+class Questions(models.Model):
+    name = models.CharField('面试题目', max_length=50)
+    description = models.CharField('描述', max_length=100, blank=True)
+    create_date = models.DateTimeField('创建时间', auto_now_add=True)
+    updated_date = models.DateTimeField('更新时间', auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者')
+    slug = models.SlugField(unique=True)
+    class Meta:
+        verbose_name = '面试题目'
+        verbose_name_plural = verbose_name
+        ordering = ['updated_date']
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('blog:questions_detail', kwargs={'slug': self.slug})
+
+    def get_pre(self):
+        return Questions.objects.filter(id__lt=self.id).order_by('-id').first()
+
+    def get_next(self):
+        return Questions.objects.filter(id__gt=self.id).order_by('id').first()
+
+
+class Project(models.Model):
+    name = models.CharField("项目名",max_length=50)
+    description = models.CharField("项目描述",max_length=250)
+    download_link = models.URLField("下载地址",max_length=150)
+    create_date = models.DateTimeField('创建时间', auto_now_add=True)
+    updated_date = models.DateTimeField('更新时间', auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者')
+    slug = models.SlugField(unique=True)
+
+    class Meta:
+        verbose_name = '项目收集'
+        verbose_name_plural = verbose_name
+        ordering = ['updated_date']
+
+    def __str__(self):
+        return self.name
+
+
+class About(models.Model):
+    name = models.CharField("标题",max_length=50)
+    description = models.TextField("简介",max_length=250)
+
+    class Meta:
+        verbose_name = '关于我们'
+        verbose_name_plural = verbose_name
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
